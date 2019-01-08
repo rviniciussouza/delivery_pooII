@@ -15,7 +15,7 @@ public class Telefone {
 	private Long id;
 	private Byte ddd;
 	private Integer numero;
-
+	
 	public Long getId() {
 		return id;
 	}

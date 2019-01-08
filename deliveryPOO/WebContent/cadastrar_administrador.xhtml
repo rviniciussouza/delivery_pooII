@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cadastrar usuário</title>
+</h:head>
+<h:body>
+	
+	<style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+	</style>
+	
+	<h:form>
+		<h:panelGrid columns="2" cellspadding="5">
+			<p:outputLabel value="Nome" for="nome"/>
+			<p:inputText id="nome" value="#{administradorBean.administrador.nome}" />
+			
+			<p:outputLabel value="CPF" for="cpf"/>
+			<p:inputMask id="cpf" value="#{administradorBean.administrador.cpf}" mask="999.999.999-99" converter="inputCpf"  />
+			
+			<p:outputLabel value="Telefone" for="telefone"/>
+			<p:inputMask id="telefone" value="#{administradorBean.telefone}" mask="(999) 99999-9999" converter="inputTelefone"/>
+			
+			<p:outputLabel value="Rua" for="rua"/>
+			<p:inputText id="rua" value="#{administradorBean.endereco.rua}" />
+			
+			<p:outputLabel value="Numero" for="numero"/>
+			<p:inputText id="numero" value="#{administradorBean.endereco.numero}" />
+			
+			<p:outputLabel value="Bairro" for="bairro"/>
+			<p:inputText id="bairro" value="#{administradorBean.endereco.bairro}" />
+			
+			<p:outputLabel value="Ponto de referência" for="pontoRef"/>
+			<p:inputText id="pontoRef" value="#{administradorBean.endereco.pontoRef}" />
+			
+			<p:outputLabel value="Complemento" for="complemento"/>
+			<p:inputText id="complemento" value="#{administradorBean.endereco.complemento}" />
+			
+			<p:outputLabel value="Usuário" for="usuario"/>
+			<p:inputText id="usuario" value="#{administradorBean.administrador.usuario}" />
+			
+			<p:outputLabel value="Senha" for="senha"/>
+			<p:inputText id="senha" value="#{administradorBean.administrador.senha}" converter="inputSenha" />
+			
+			<p:commandButton value="Submit" type="submit" action="#{administradorBean.salvar()}" />
+		</h:panelGrid>
+	</h:form>
+	
+	
+</h:body>
+</html>

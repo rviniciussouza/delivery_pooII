@@ -1,9 +1,15 @@
 package br.edu.ifnmg.model;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
+@DiscriminatorValue("Atendente")
 public class Atendente extends Pessoa{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String usuario;
 	private String senha;
 	public String getUsuario() {
