@@ -2,6 +2,7 @@ package br.edu.ifnmg.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,14 +24,14 @@ public abstract class Pessoa implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	private Long cpf;
+	private String cpf;
 	private String nome;	
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="endereco_fk")
 	private Endereco endereco;
 
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="telefone_fk")
 	private Telefone telefone;
 
@@ -43,11 +44,11 @@ public abstract class Pessoa implements Serializable {
 	}
 	
 	
-	public Long getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(Long cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 

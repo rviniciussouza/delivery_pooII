@@ -17,7 +17,7 @@ import br.edu.ifnmg.model.Administrador;
 /**
  * Servlet Filter implementation class SectionAdmin
  */
-@WebFilter(filterName = "/SectionAdmin", urlPatterns = ("/app/*"))
+@WebFilter(filterName = "/SectionAdmin", urlPatterns = ("/ask/*"))
 public class SectionAdmin implements Filter {
 
     /**

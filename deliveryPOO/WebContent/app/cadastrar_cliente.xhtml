@@ -8,21 +8,38 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Delivery</title>
+    <title>Delivery - Cadastrar Cliente</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link rel="apple-touch-icon" href="apple-icon.png" />
     <link rel="shortcut icon" href="favicon.ico" />
 
-    <link rel="stylesheet" href="vendors/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="vendors/themify-icons/css/themify-icons.css" />
-    <link rel="stylesheet" href="vendors/flag-icon-css/css/flag-icon.min.css" />
-    <link rel="stylesheet" href="vendors/selectFX/css/cs-skin-elastic.css" />
-    <link rel="stylesheet" href="vendors/jqvmap/dist/jqvmap.min.css" />
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="../vendors/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../vendors/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../vendors/themify-icons/css/themify-icons.css" />
+    <link rel="stylesheet" href="../vendors/flag-icon-css/css/flag-icon.min.css" />
+    <link rel="stylesheet" href="../vendors/selectFX/css/cs-skin-elastic.css" />
+    <link rel="stylesheet" href="../vendors/jqvmap/dist/jqvmap.min.css" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css' />
+
+	<style>
+		
+		
+		.ui-inputtext { box-shadow: none !important; }
+		.ui-inputmask { box-shadow: none !important; }
+		
+		.input {
+			width: 100%;
+		}
+		
+		.label {
+			margin-top: 10px;
+		}
+		
+	</style>
+
 </h:head>
 <h:body>
 
@@ -34,13 +51,13 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand" href="">DELIVERY System</a>
-                <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo" /></a>
+                <a class="navbar-brand hidden" href="./"><img src="../images/logo2.png" alt="Logo" /></a>
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                        <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Cadastrar Cliente</a>
                     </li>
                     <h3 class="menu-title">UI elements</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
@@ -266,7 +283,91 @@
 
         <div class="content mt-3">
 
- 
+			<h:form>
+
+			<div class="col-lg-12">
+                <div class="card">    
+                	<div class="card-header"><h4>Dados Pessoais</h4></div>
+              
+             <div class="row form-group">
+				
+			<div style="margin: 10px">
+			
+			<div class="col-8">
+			<p:outputLabel value="Nome" for="nome" class="label"  /> <br />
+			<p:inputText id="nome" class="input" required = "true" alue="#{clienteBean.cliente.nome}" />
+			</div>	
+			
+			<div class="col-4">			
+			<p:outputLabel value="CPF" for="cpf" class="label"/> <br />
+			<p:inputMask id="cpf" required = "true" value="#{clienteBean.cliente.cpf}" mask="999.999.999-99" class="input" />
+			</div>
+			
+						<div class="col-6">
+			<p:outputLabel value="Telefone" for="telefone" class="label"/> <br />
+			<p:inputMask id="telefone" required = "true" value="#{clienteBean.telefone.numero}" mask="(999) 99999-9999" class="input"/>
+			</div>   
+			</div>
+			</div>
+		</div>
+		</div>
+            
+            <div class="col-lg-12">
+                <div class="card">
+                	<div class="card-header"><h4>Endereço</h4></div>
+            
+			<div style="margin: 10px">
+
+			                <div class="row form-group">
+                	
+                <div class="col-8">
+                
+
+                	<p:outputLabel value="Rua" for="rua" class="label"/> <br />
+			<p:inputText id="rua" required = "true" value="#{clienteBean.endereco.rua}" class="input" />
+			
+				</div>	
+			
+			<div class="col-4">
+			<p:outputLabel value="Numero" for="numero" class="label"/> <br/>
+			<p:inputText required="true" id="numero" value="#{clienteBean.endereco.numero}" class="input" />
+			</div>
+			
+			</div>
+			
+			                <div class="row form-group">
+			
+			<div class="col-6">
+			
+			<p:outputLabel value="Bairro" for="bairro" class="label"/> <br />
+			<p:inputText required="true" id="bairro" value="#{clienteBean.endereco.bairro}" class="input" />
+			</div>
+			
+			<div class="col-6">
+			<p:outputLabel value="Ponto de referência" for="pontoRef" class="label"/> <br/>
+			<p:inputText required="true" id="pontoRef" value="#{clienteBean.endereco.pontoRef}" class="input" />
+			</div>
+			
+			</div>
+			
+			                <div class="row form-group">
+			
+			<div class="col-4">
+			<p:outputLabel value="Complemento" for="complemento" class="label"/> <br/>
+			<p:inputText id="complemento" value="#{clienteBean.endereco.complemento}" class="input" style="margin-botton: 10px" />
+             </div>   	
+            
+            </div>
+                	
+                </div>
+            </div>
+ 			</div>
+ 			
+			<div class="col-4">
+ 			<p:commandButton value="Submit" type="submit" action="#{clienteBean.salvar()}" style="padding: 10px" />
+ 			</div>
+ 			</h:form>
+ 		
         </div> <!-- .content -->
     </div><!-- /#right-panel -->
 

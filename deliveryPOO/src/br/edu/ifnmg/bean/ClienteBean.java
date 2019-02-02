@@ -4,29 +4,29 @@ package br.edu.ifnmg.bean;
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import br.edu.ifnmg.dao.AdministradorDao;
+import br.edu.ifnmg.dao.ClienteDao;
 import br.edu.ifnmg.dao.EnderecoDao;
 import br.edu.ifnmg.dao.TelefoneDao;
-import br.edu.ifnmg.model.Administrador;
+import br.edu.ifnmg.model.Cliente;
 import br.edu.ifnmg.model.Endereco;
 import br.edu.ifnmg.model.Telefone;
 
 @ManagedBean
-public class AdministradorBean {
+public class ClienteBean {
 	
-	private Administrador administrador;
+	private Cliente cliente;
 	private Telefone telefone;
 	private Endereco endereco;
 	
 	@PostConstruct
 	public void init() {
-		administrador = new Administrador();
+		cliente = new Cliente();
 		telefone = new Telefone();
 		endereco = new Endereco();
 	}
 	
 	@EJB
-	private AdministradorDao administradorDao;
+	private ClienteDao clienteDao;
 	
 	@EJB
 	private TelefoneDao telefoneDao;
@@ -36,16 +36,16 @@ public class AdministradorBean {
 	
 	public void salvar() {
 		
-		administrador.setTelefone(telefone);
-		administrador.setEndereco(endereco);
-		administradorDao.salvar(this.administrador);
+		cliente.setTelefone(telefone);
+		cliente.setEndereco(endereco);
+		clienteDao.salvar(this.cliente);
 	}
 	
-	public Administrador getAdministrador() {
-		return administrador;
+	public Cliente getCliente() {
+		return cliente;
 	}
-	public void setAdministrador(Administrador administrador) {
-		this.administrador = administrador;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	public Telefone getTelefone() {
 		return telefone;

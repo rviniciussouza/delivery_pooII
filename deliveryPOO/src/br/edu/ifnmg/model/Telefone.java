@@ -13,8 +13,7 @@ public class Telefone {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	private Byte ddd;
-	private Integer numero;
+	private String numero;
 	
 	public Long getId() {
 		return id;
@@ -24,20 +23,11 @@ public class Telefone {
 		this.id = id;
 	}
 
-	public Byte getDdd() {
-		return ddd;
-	}
-
-	public void setDdd(Byte ddd) {
-		this.ddd = ddd;
-	}
-
-	public Integer getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
-	public void setNumero(Integer numero) {
+	public void setNumero(String numero) {
 		this.numero = numero;
 	}
-
 }
