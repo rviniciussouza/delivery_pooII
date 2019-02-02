@@ -1,11 +1,9 @@
 package br.edu.ifnmg.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Veiculo {
@@ -15,10 +13,6 @@ public class Veiculo {
 	private String placa;
 	private String modelo;
 	private String cor;
-	
-	@OneToOne
-	@Column(nullable=false)
-	private Entregador entregador;
 
 	public Integer getId() {
 		return id;
@@ -50,14 +44,6 @@ public class Veiculo {
 
 	public void setCor(String cor) {
 		this.cor = cor;
-	}
-
-	public Entregador getEntregador() {
-		return entregador;
-	}
-
-	public void setEntregador(Entregador entregador) {
-		this.entregador = entregador;
 	}
 	
 }

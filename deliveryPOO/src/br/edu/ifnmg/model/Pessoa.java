@@ -1,9 +1,7 @@
 package br.edu.ifnmg.model;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+//import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -26,11 +26,13 @@ public abstract class Pessoa implements Serializable {
 	private Long cpf;
 	private String nome;	
 	
-	@OneToMany(mappedBy="pessoa", cascade = CascadeType.ALL)
-	private List<Endereco> enderecos;
+	@OneToOne
+	@JoinColumn(name="endereco_fk")
+	private Endereco endereco;
 
-	@OneToMany(mappedBy="pessoa", cascade = CascadeType.ALL)
-	private List<Telefone> telefones;
+	@OneToOne
+	@JoinColumn(name="telefone_fk")
+	private Telefone telefone;
 
 	public Long getId() {
 		return id;
@@ -57,19 +59,22 @@ public abstract class Pessoa implements Serializable {
 		this.nome = nome;
 	}
 
-	public List<Endereco> getEnderecos() {
-		return enderecos;
+	public Endereco getEndereco() {
+		return endereco;
 	}
 
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
-	public List<Telefone> getTelefones() {
-		return telefones;
+	public Telefone getTelefone() {
+		return telefone;
 	}
 
-	public void setTelefones(List<Telefone> telefones) {
-		this.telefones = telefones;
+	public void setTelefone(Telefone telefone) {
+		this.telefone = telefone;
 	}
+
+	
+	
 }

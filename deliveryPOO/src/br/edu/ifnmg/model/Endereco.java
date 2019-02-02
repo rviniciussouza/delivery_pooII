@@ -1,13 +1,11 @@
 package br.edu.ifnmg.model;
 
-import javax.persistence.CascadeType;
+//import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 //import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Endereco {
@@ -19,10 +17,6 @@ public class Endereco {
 	private String pontoRef;
 	private String bairro;
 	private String complemento;
-
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(nullable=false, name="pessoa")
-	private Pessoa pessoa;
 
 	public Long getId() {
 		return id;
@@ -70,13 +64,5 @@ public class Endereco {
 
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
-	}
-
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
 	}
 }
