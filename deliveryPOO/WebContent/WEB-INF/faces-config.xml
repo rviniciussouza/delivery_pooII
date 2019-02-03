@@ -14,8 +14,21 @@
 	<managed-bean>
 		<managed-bean-name>clienteBean</managed-bean-name>
 		<managed-bean-class>br.edu.ifnmg.bean.ClienteBean</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
+		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>produtoBean</managed-bean-name>
+		<managed-bean-class>br.edu.ifnmg.bean.ProdutoBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>acrescimoBean</managed-bean-name>
+		<managed-bean-class>br.edu.ifnmg.bean.AcrescimoBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+	
 	
 	<managed-bean>
 		<managed-bean-name>entregadorBean</managed-bean-name>

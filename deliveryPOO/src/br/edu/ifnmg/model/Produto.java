@@ -12,6 +12,9 @@ public class Produto {
 	private Long id;
 	private String nome;
 	private Double preco;
+	private Integer qtdEstoque;
+	private String descricao;
+	
 	public Long getId() {
 		return id;
 	}
@@ -30,4 +33,20 @@ public class Produto {
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
+	public Integer getQtdEstoque() {
+		return qtdEstoque;
+	}
+	public void setQtdEstoque(Integer qtdEstoque) {
+		this.qtdEstoque = qtdEstoque;
+	}
+	public String getDescricao() {
+		return descricao;
+	}
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	
+	
+	
+	
 }

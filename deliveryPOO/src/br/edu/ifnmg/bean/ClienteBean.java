@@ -46,7 +46,7 @@ public class ClienteBean {
 	}
 	
 	public void addMessage(String info, String detail ) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cancel Event", "Rate Reset");
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, info, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 	
