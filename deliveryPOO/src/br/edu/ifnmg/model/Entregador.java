@@ -16,7 +16,7 @@ public class Entregador extends Pessoa{
 	
 	private static final long serialVersionUID = 1L;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="veiculo_fk")
 	private Veiculo veiculo;
 

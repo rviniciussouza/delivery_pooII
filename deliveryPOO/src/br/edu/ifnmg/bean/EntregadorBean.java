@@ -7,55 +7,50 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-import br.edu.ifnmg.dao.AdministradorDao;
-import br.edu.ifnmg.dao.EnderecoDao;
-import br.edu.ifnmg.dao.TelefoneDao;
-import br.edu.ifnmg.model.Administrador;
+import br.edu.ifnmg.dao.EntregadorDao;
+import br.edu.ifnmg.model.Entregador;
 import br.edu.ifnmg.model.Endereco;
 import br.edu.ifnmg.model.Telefone;
+import br.edu.ifnmg.model.Veiculo;
 
 @ManagedBean
-public class AdministradorBean {
+public class EntregadorBean {
 	
-	private Administrador administrador;
+	private Entregador entregador;
 	private Telefone telefone;
 	private Endereco endereco;
+	private Veiculo veiculo;
 	
 	@PostConstruct
 	public void init() {
-		administrador = new Administrador();
+		entregador = new Entregador();
 		telefone = new Telefone();
 		endereco = new Endereco();
+		veiculo = new Veiculo();
 	}
 	
 	@EJB
-	private AdministradorDao administradorDao;
-	
-	@EJB
-	private TelefoneDao telefoneDao;
-	
-	@EJB
-	private EnderecoDao enderecoDao;
+	private EntregadorDao entregadorDao;
 	
 	public void salvar() {
-		
-		administrador.setTelefone(telefone);
-		administrador.setEndereco(endereco);
-		administradorDao.salvar(this.administrador);
+		entregador.setTelefone(telefone);
+		entregador.setEndereco(endereco);
+		entregador.setVeiculo(veiculo);
+		entregadorDao.salvar(this.entregador);
 		addMessage("Cadastrado com sucesso", null);
+		entregador = new Entregador();
 	}
 	
 	public void addMessage(String info, String detail ) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cancel Event", "Rate Reset");
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, info, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 	
-	
-	public Administrador getAdministrador() {
-		return administrador;
+	public Entregador getEntregador() {
+		return entregador;
 	}
-	public void setAdministrador(Administrador administrador) {
-		this.administrador = administrador;
+	public void setEntregador(Entregador entregador) {
+		this.entregador = entregador;
 	}
 	public Telefone getTelefone() {
 		return telefone;
@@ -69,4 +64,15 @@ public class AdministradorBean {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
+
+	public Veiculo getVeiculo() {
+		return veiculo;
+	}
+
+	public void setVeiculo(Veiculo veiculo) {
+		this.veiculo = veiculo;
+	}
+	
+	
+	
 }

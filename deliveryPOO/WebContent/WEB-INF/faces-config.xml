@@ -14,6 +14,12 @@
 	<managed-bean>
 		<managed-bean-name>clienteBean</managed-bean-name>
 		<managed-bean-class>br.edu.ifnmg.bean.ClienteBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>entregadorBean</managed-bean-name>
+		<managed-bean-class>br.edu.ifnmg.bean.EntregadorBean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 	

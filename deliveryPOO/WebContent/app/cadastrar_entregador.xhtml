@@ -21,8 +21,8 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<h:form id="form">
-			<p:growl id="msgs" showDetail="true" sticky="true" />
+		<h:form>
+			<p:growl id="growl" showDetail="true" sticky="true" />
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-header">
@@ -37,22 +37,22 @@
 								<p:outputLabel value="Nome" for="nome" class="label" />
 								<br />
 								<p:inputText id="nome" class="input" required="true"
-									alue="#{administradorBean.administrador.nome}" />
+									alue="#{entregadorBean.entregador.nome}" />
 							</div>
 
 							<div class="col-4">
 								<p:outputLabel value="CPF" for="cpf" class="label" />
 								<br />
 								<p:inputMask id="cpf" required="true"
-									value="#{administradorBean.administrador.cpf}"
-									mask="999.999.999-99" class="input" />
+									value="#{entregadorBean.entregador.cpf}" mask="999.999.999-99"
+									class="input" />
 							</div>
 
 							<div class="col-6">
 								<p:outputLabel value="Telefone" for="telefone" class="label" />
 								<br />
 								<p:inputMask id="telefone" required="true"
-									value="#{administradorBean.telefone.numero}"
+									value="#{entregadorBean.telefone.numero}"
 									mask="(999) 99999-9999" class="input" />
 							</div>
 						</div>
@@ -76,7 +76,7 @@
 								<p:outputLabel value="Rua" for="rua" class="label" />
 								<br />
 								<p:inputText id="rua" required="true"
-									value="#{administradorBean.endereco.rua}" class="input" />
+									value="#{entregadorBean.endereco.rua}" class="input" />
 
 							</div>
 
@@ -84,7 +84,7 @@
 								<p:outputLabel value="Numero" for="numero" class="label" />
 								<br />
 								<p:inputText required="true" id="numero"
-									value="#{administradorBean.endereco.numero}" class="input" />
+									value="#{entregadorBean.endereco.numero}" class="input" />
 							</div>
 
 						</div>
@@ -96,7 +96,7 @@
 								<p:outputLabel value="Bairro" for="bairro" class="label" />
 								<br />
 								<p:inputText required="true" id="bairro"
-									value="#{administradorBean.endereco.bairro}" class="input" />
+									value="#{entregadorBean.endereco.bairro}" class="input" />
 							</div>
 
 							<div class="col-6">
@@ -104,7 +104,7 @@
 									class="label" />
 								<br />
 								<p:inputText required="true" id="pontoRef"
-									value="#{administradorBean.endereco.pontoRef}" class="input" />
+									value="#{entregadorBean.endereco.pontoRef}" class="input" />
 							</div>
 
 						</div>
@@ -116,7 +116,7 @@
 									class="label" />
 								<br />
 								<p:inputText id="complemento"
-									value="#{administradorBean.endereco.complemento}" class="input"
+									value="#{entregadorBean.endereco.complemento}" class="input"
 									style="margin-botton: 10px" />
 							</div>
 
@@ -129,44 +129,44 @@
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-header">
-						<h4>Dados de Login</h4>
+						<h4>Dados do veículo</h4>
 					</div>
-
 					<div style="margin: 10px">
 
 						<div class="row form-group">
 
-							<div class="col-6">
+							<div class="col-4">
 
-								<p:outputLabel value="Usuário" for="usuario" class="label" />
+								<p:outputLabel value="Placa" for="placa" class="label" />
 								<br />
-								<p:inputText required="true" id="usuario"
-									value="#{administradorBean.administrador.usuario}"
-									class="input" />
-
+								<p:inputText required="true" id="placa"
+									value="#{entregadorBean.veiculo.placa}" class="input" />
 							</div>
-
-							<div class="col-6">
-
-								<p:outputLabel value="Senha" for="senha" class="label" />
+							<div class="col-4">
+								<p:outputLabel value="Cor" for="cor" class="label" />
 								<br />
-								<p:inputText required="true" id="senha"
-									value="#{administradorBean.administrador.senha}" class="input"
-									converter="inputSenha" />
-
+								<p:inputText required="true" id="cor"
+									value="#{entregadorBean.veiculo.cor}" class="input" />
+							</div>
+							<div class="col-4">
+								<p:outputLabel value="Modelo" for="modelo" class="label" />
+								<br />
+								<p:inputText required="true" id="modelo"
+									value="#{entregadorBean.veiculo.modelo}" class="input" />
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
+
+
 			<div class="col-4">
-				<p:commandButton value="Submit" update="form, msgs"
-					action="#{administradorBean.salvar()}" style="padding: 10px" />
+				<p:commandButton value="Submit" update="@form"
+					action="#{entregadorBean.salvar()}" style="padding: 10px" />
 			</div>
+
 		</h:form>
 	</ui:define>
-
 </ui:composition>
-
 </html>

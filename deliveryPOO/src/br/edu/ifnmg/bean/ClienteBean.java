@@ -4,6 +4,9 @@ package br.edu.ifnmg.bean;
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import br.edu.ifnmg.dao.ClienteDao;
 import br.edu.ifnmg.dao.EnderecoDao;
 import br.edu.ifnmg.dao.TelefoneDao;
@@ -39,7 +42,13 @@ public class ClienteBean {
 		cliente.setTelefone(telefone);
 		cliente.setEndereco(endereco);
 		clienteDao.salvar(this.cliente);
+		addMessage("Cadastrado com sucesso", null);
 	}
+	
+	public void addMessage(String info, String detail ) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cancel Event", "Rate Reset");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
 	
 	public Cliente getCliente() {
 		return cliente;
