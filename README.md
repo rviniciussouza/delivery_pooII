@@ -12,3 +12,4 @@ Trabalho final da disciplina POO II do IFNMG Câmpus Montes Claros.
 ## Autores
 
 * [Vinícius Rodrigues Souza] (https://github.com/rviniciussouza)
+* [Debora Liliane] ()
