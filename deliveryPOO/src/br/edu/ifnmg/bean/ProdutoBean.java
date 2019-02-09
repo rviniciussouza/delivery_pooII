@@ -1,5 +1,7 @@
 package br.edu.ifnmg.bean;
 
+import java.util.List;
+
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -20,6 +22,10 @@ public class ProdutoBean {
 	@PostConstruct
 	public void init() {
 		produto = new Produto();
+	}
+
+	public List<Produto> getProdutos() {
+		return produtoDao.getProdutos();
 	}
 	
 	public void salvar() {

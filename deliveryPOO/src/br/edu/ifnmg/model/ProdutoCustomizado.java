@@ -1,5 +1,6 @@
 package br.edu.ifnmg.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -24,7 +25,7 @@ public class ProdutoCustomizado {
 	private Produto produto;
 	
 	@ManyToMany(mappedBy="produtosCust")
-	private List<Acrescimo> acrescimos;
+	private List<Acrescimo> acrescimos = new ArrayList<>();
 
 	public Long getId() {
 		return id;

@@ -8,7 +8,7 @@
 
 	<ui:define name="page-title">
 		<div class="page-title">
-			<h1>Cadastrar administrador</h1>
+			<h1>Cadastrar cliente</h1>
 		</div>
 	</ui:define>
 
@@ -34,7 +34,7 @@
 			
 			<div class="col-8">
 			<p:outputLabel value="Nome" for="nome" class="label"  /> <br />
-			<p:inputText id="nome" class="input" required = "true" alue="#{clienteBean.cliente.nome}" />
+			<p:inputText id="nome" class="input" required = "true" value="#{clienteBean.cliente.nome}" />
 			</div>	
 			
 			<div class="col-4">			

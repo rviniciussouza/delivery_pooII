@@ -1,6 +1,8 @@
 package br.edu.ifnmg.bean;
 
 
+import java.util.List;
+
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -43,6 +45,10 @@ public class ClienteBean {
 		cliente.setEndereco(endereco);
 		clienteDao.salvar(this.cliente);
 		addMessage("Cadastrado com sucesso", null);
+	}
+	
+	public List<Cliente> getClientes() {
+		return clienteDao.getClientes();
 	}
 	
 	public void addMessage(String info, String detail ) {

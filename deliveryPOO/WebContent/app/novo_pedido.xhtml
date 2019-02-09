@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/WEB-INF/template.xhtml">
+
+	<ui:define name="page-title">
+		<div class="page-title">
+			<h1>Novo pedido</h1>
+		</div>
+	</ui:define>
+
+	<ui:define name="path">
+		<div class="page-title">
+			<ol class="breadcrumb text-right">
+				<li class="active">Dashboard</li>
+			</ol>
+		</div>
+	</ui:define>
+
+	<ui:define name="content">
+
+
+		<h:form id="form">
+
+
+			<p:growl id="msgs" showDetail="true" life="2000" />
+
+		<div class="col-lg-6">
+			<p:dataTable id="produtos" var="produto"
+				value="#{produtoBean.produtos}" selectionMode="single"
+				selection="#{pedidoBean.produtoCustomizado.produto}"
+				rowKey="#{produto.id}">
+				<f:facet name="header">
+            Selecionar produto
+        </f:facet>
+				<p:ajax event="rowSelect" oncomplete="PF('addProdutoDialog').show()"
+					update=":form:addProduto" />
+				<p:column headerText="Nome">
+					<h:outputText value="#{produto.nome}" />
+				</p:column>
+				<p:column headerText="Peço">
+					<h:outputText value="#{produto.preco}" />
+				</p:column>
+			</p:dataTable>
+
+
+			<p:dataTable id="carrinho" style="margin-top: 10px" var="item" value="#{pedidoBean.itens}">
+				<f:facet name="header">
+            Produtos selectionados
+        </f:facet>
+				<p:column headerText="Nome">
+					<h:outputText value="#{item.produto.nome}" />
+				</p:column>
+				<p:column headerText="Quantidade">
+					<h:outputText value="#{item.qtd}" />
+				</p:column>
+				<p:column style="width:60px;text-align: center">
+					<p:commandButton update=":form:addAcrescimo"
+						oncomplete="PF('addAcrescimoDialog').show()" icon="fa fa-plus"
+						title="View">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{pedidoBean.produtoCustomizado}" />
+					</p:commandButton>
+				</p:column>
+
+				<p:column style="width:60px;text-align: center">
+					<p:commandButton update=":form:listAcrescimos"
+						oncomplete="PF('acrescimosDialog').show()" icon="fa fa-search"
+						title="View">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{pedidoBean.produtoCustomizado}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</div>
+		
+		<div class="col-lg-6">
+		
+			<p:dataTable id="clientes" var="cliente"
+				value="#{clienteBean.clientes}" selectionMode="single"
+				selection="#{pedidoBean.cliente}"
+				rowKey="#{cliente.id}">
+				<f:facet name="header">
+            Selecionar cliente
+        </f:facet>
+				<p:column headerText="Nome">
+					<h:outputText value="#{clinete.nome}" />
+				</p:column>
+				<p:column headerText="Telefone">
+					<h:outputText value="#{cliente.telefone}" />
+				</p:column>
+				<p:column headerText="Endereço">
+					<h:outputText value="#{cliente.endereco}" />
+				</p:column>
+			</p:dataTable>		
+			
+		
+		</div>
+
+			<p:dialog header="Adicionar produto" widgetVar="addProdutoDialog"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="addProduto"
+					style="text-align:center; width: 400px">
+					<p:outputLabel class="label" value="Quantidade" />
+					<p:inputText value="#{pedidoBean.produtoCustomizado.qtd}" />
+					<p:commandButton value="Adicionar"
+						action="#{pedidoBean.addProduto()}" update=":form:carrinho"
+						oncomplete="PF('addProdutoDialog').hide()" />
+				</p:outputPanel>
+			</p:dialog>
+
+			<p:dialog header="Acréscimos adicionados"
+				widgetVar="acrescimosDialog" modal="true" showEffect="fade"
+				hideEffect="fade" resizable="false">
+				<p:outputPanel id="listAcrescimos"
+					style="text-align:center; width: 400px">
+					<p:dataTable id="acrescimos" var="acrescimo"
+						value="#{pedidoBean.produtoCustomizado.acrescimos}" >
+						<p:column headerText="Nome">
+							<h:outputText value="#{acrescimo.nome}" />
+						</p:column>
+					</p:dataTable>
+				</p:outputPanel>
+			</p:dialog>
+
+			<p:dialog header="Adicionar acrescimo" widgetVar="addAcrescimoDialog"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="addAcrescimo"
+					style="text-align:center; width: 400px">
+
+					<p:outputLabel value="Código do acréscimo" class="label" />
+					<p:inputText value="#{pedidoBean.acrescimo}"
+						converter="#{inputAcrescimo}" class="input" />
+
+					<p:commandButton value="Adicionar" update=":form:msgs"
+						action="#{pedidoBean.addAcrescimo()}"
+						oncomplete="PF('addAcrescimoDialog').hide()" />
+
+				</p:outputPanel>
+			</p:dialog>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

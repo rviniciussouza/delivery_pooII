@@ -18,6 +18,18 @@
 	</managed-bean>
 	
 	<managed-bean>
+		<managed-bean-name>inputAcrescimo</managed-bean-name>
+		<managed-bean-class>br.edu.ifnmg.convert.InputAcrescimo</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>pedidoBean</managed-bean-name>
+		<managed-bean-class>br.edu.ifnmg.bean.PedidoBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
 		<managed-bean-name>produtoBean</managed-bean-name>
 		<managed-bean-class>br.edu.ifnmg.bean.ProdutoBean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>

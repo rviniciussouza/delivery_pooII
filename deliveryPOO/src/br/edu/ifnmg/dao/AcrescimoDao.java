@@ -2,7 +2,9 @@ package br.edu.ifnmg.dao;
 
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import br.edu.ifnmg.model.Acrescimo;
 
@@ -16,5 +18,12 @@ public class AcrescimoDao {
 		entityManager.persist(acrescimo);
 	}
 	
-	
+	public Acrescimo findById(Long id) {
+		try {
+			TypedQuery<Acrescimo> tq = entityManager.createQuery("select a FROM Acrescimo a WHERE a.id = :id",Acrescimo.class);
+			return tq.setParameter("id", id).getSingleResult();
+		} catch(NoResultException e) {
+			return null;
+		}
+	}
 }
