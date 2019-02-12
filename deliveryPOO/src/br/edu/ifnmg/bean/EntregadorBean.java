@@ -1,6 +1,8 @@
 package br.edu.ifnmg.bean;
 
 
+import java.util.List;
+
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -39,6 +41,10 @@ public class EntregadorBean {
 		entregadorDao.salvar(this.entregador);
 		addMessage("Cadastrado com sucesso", null);
 		entregador = new Entregador();
+	}
+	
+	public List<Entregador> getEntregadores() {
+		return entregadorDao.getEntregadores();
 	}
 	
 	public void addMessage(String info, String detail ) {

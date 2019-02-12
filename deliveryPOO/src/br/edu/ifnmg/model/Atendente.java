@@ -18,8 +18,8 @@ public class Atendente extends Pessoa{
 	private String usuario;
 	private String senha;
 	
-	@OneToMany(mappedBy="atendente", fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST, CascadeType.MERGE})
-	private List<Pedido> pedidos;
+//	@OneToMany(mappedBy="atendente", fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST, CascadeType.MERGE})
+//	private List<Pedido> pedidos;
 	
 	public String getUsuario() {
 		return usuario;

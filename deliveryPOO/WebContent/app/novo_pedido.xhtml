@@ -60,7 +60,7 @@
 				<p:column style="width:60px;text-align: center">
 					<p:commandButton update=":form:addAcrescimo"
 						oncomplete="PF('addAcrescimoDialog').show()" icon="fa fa-plus"
-						title="View">
+						title="Adicionar acréscimo">
 						<f:setPropertyActionListener value="#{item}"
 							target="#{pedidoBean.produtoCustomizado}" />
 					</p:commandButton>
@@ -69,11 +69,21 @@
 				<p:column style="width:60px;text-align: center">
 					<p:commandButton update=":form:listAcrescimos"
 						oncomplete="PF('acrescimosDialog').show()" icon="fa fa-search"
-						title="View">
+						title="Visualisar acréscimos">
 						<f:setPropertyActionListener value="#{item}"
 							target="#{pedidoBean.produtoCustomizado}" />
 					</p:commandButton>
 				</p:column>
+				
+				<p:column style="width:60px;text-align: center">
+					<p:commandButton update=":form:listAcrescimos" ajax="true"
+						action="pedidoBean.excluirProdutoCarrinho()" icon="fa fa-remove"
+						title="Excluir">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{pedidoBean.produtoCustomizado}" />
+					</p:commandButton>
+				</p:column>
+				
 			</p:dataTable>
 		</div>
 		
@@ -87,10 +97,10 @@
             Selecionar cliente
         </f:facet>
 				<p:column headerText="Nome">
-					<h:outputText value="#{clinete.nome}" />
+					<h:outputText value="#{cliente.nome}" />
 				</p:column>
 				<p:column headerText="Telefone">
-					<h:outputText value="#{cliente.telefone}" />
+					<h:outputText value="#{cliente.telefone.numero}" />
 				</p:column>
 				<p:column headerText="Endereço">
 					<h:outputText value="#{cliente.endereco}" />
@@ -99,6 +109,26 @@
 			
 		
 		</div>
+
+		<div class="col-lg-6">
+		
+			<p:dataTable id="entregadores" var="entregador"
+				value="#{entregadorBean.entregadores}" selectionMode="single"
+				selection="#{entregadorBean.entregador}"
+				rowKey="#{entregador.id}">
+				<f:facet name="header">
+            			Selecionar entregador
+        		</f:facet>
+				<p:column headerText="Nome">
+					<h:outputText value="#{entregador.nome}" />
+				</p:column>
+				<p:column headerText="Veiculo">
+					<h:outputText value="#{entregador.veiculo.modelo}" />
+				</p:column>
+			</p:dataTable>		
+		</div>
+		
+
 
 			<p:dialog header="Adicionar produto" widgetVar="addProdutoDialog"
 				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
@@ -141,6 +171,9 @@
 
 				</p:outputPanel>
 			</p:dialog>
+
+		<p:commandButton action="#{pedidoBean.salvar()}" value="Salvar" />
+
 
 		</h:form>
 

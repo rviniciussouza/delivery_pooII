@@ -65,4 +65,10 @@ public class Endereco {
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
+	
+	@Override
+	public String toString() {
+		return this.rua + "," + this.numero + "," + this.complemento;
+	}
+	
 }

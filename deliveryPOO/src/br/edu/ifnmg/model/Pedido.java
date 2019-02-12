@@ -28,7 +28,7 @@ public class Pedido {
 	private Cliente cliente;
 	@ManyToOne
 	@JoinColumn(nullable=false)
-	private Atendente atendente;
+	private Administrador administrador;
 	@ManyToOne
 	@JoinColumn(nullable=false)
 	private Entregador entregador;
@@ -43,6 +43,7 @@ public class Pedido {
 	@Temporal(TemporalType.DATE)
 	private Date data;
 	private String observacao;
+	
 	public Long getId() {
 		return id;
 	}
@@ -61,11 +62,12 @@ public class Pedido {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	public Atendente getAtendente() {
-		return atendente;
+	
+	public Administrador getAdministrador() {
+		return administrador;
 	}
-	public void setAtendente(Atendente atendente) {
-		this.atendente = atendente;
+	public void setAdministrador(Administrador administrador) {
+		this.administrador = administrador;
 	}
 	public Entregador getEntregador() {
 		return entregador;

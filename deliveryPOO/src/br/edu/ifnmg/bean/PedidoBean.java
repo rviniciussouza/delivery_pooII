@@ -1,17 +1,31 @@
 package br.edu.ifnmg.bean;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import br.edu.ifnmg.dao.PedidoDao;
 import br.edu.ifnmg.model.Acrescimo;
+import br.edu.ifnmg.model.Administrador;
 import br.edu.ifnmg.model.Cliente;
 import br.edu.ifnmg.model.Pedido;
 import br.edu.ifnmg.model.ProdutoCustomizado;
 
+@ManagedBean
 public class PedidoBean {
 
+	@EJB
+	private PedidoDao pedidoDao;
+	
 	private Pedido pedido;
 	private List<ProdutoCustomizado> itens;
 	private ProdutoCustomizado produtoCustomizado;
@@ -26,6 +40,22 @@ public class PedidoBean {
 		itens = new ArrayList<>();
 		produtoCustomizado = new ProdutoCustomizado();
 		cliente = new Cliente();
+	}
+	
+	public void salvar() {
+		
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+		Administrador administrador = (Administrador)session.getAttribute("admin");
+		
+		if(administrador != null)
+			System.out.print(administrador.getNome());
+		
+		//DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		
+//		Date date = new Date();
+//		pedido.setData(date);
+//		pedidoDao.salvar(pedido);
 	}
 	
 	public void addProduto() {
@@ -44,6 +74,10 @@ public class PedidoBean {
 		acrescimo = null;
 	}
 
+	public void excluirProdutoCarrinho() {
+		System.out.println("aqui" + produtoCustomizado.getId());
+	}
+	
 	public Pedido getPedido() {
 		return pedido;
 	}
