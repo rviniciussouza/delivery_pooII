@@ -65,10 +65,6 @@ public class ClienteBean implements Serializable {
 		return this.clientes;
 	}
 	
-	public List<Cliente> getClientesBacon() {
-		return clienteDao.getClientes();
-	}
-	
 	public void onRowEdit(RowEditEvent event) {
 		addMessage("Cliente editado com sucesso", null);
 		clienteDao.salvar((Cliente)event.getObject());
