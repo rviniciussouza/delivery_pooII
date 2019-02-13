@@ -36,7 +36,7 @@ public class Pedido {
 	@ManyToMany(mappedBy="pedidos", fetch=FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	private List<FormaPagamento> formaPagamento;
 	
-	@OneToMany(fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(nullable=false, name="pedido_id")
 	private List<ProdutoCustomizado> produtos;
 	

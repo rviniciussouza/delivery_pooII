@@ -46,16 +46,19 @@ public class PedidoBean {
 		
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-		Administrador administrador = (Administrador)session.getAttribute("admin");
-		
-		if(administrador != null)
-			System.out.print(administrador.getNome());
+		pedido.setAdministrador((Administrador)session.getAttribute("admin"));
 		
 		//DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		
-//		Date date = new Date();
-//		pedido.setData(date);
-//		pedidoDao.salvar(pedido);
+		Date date = new Date();
+		
+		for(ProdutoCustomizado p : itens) {
+			p.setId(null);
+		}
+		
+		pedido.setProdutos(itens);
+		pedido.setData(date);
+		pedidoDao.salvar(pedido);
 	}
 	
 	public void addProduto() {

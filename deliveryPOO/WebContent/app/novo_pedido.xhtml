@@ -47,7 +47,7 @@
 			</p:dataTable>
 
 
-			<p:dataTable id="carrinho" style="margin-top: 10px" var="item" value="#{pedidoBean.itens}">
+			<p:dataTable id="carrinho"  style="margin-top: 10px" var="item" value="#{pedidoBean.itens}">
 				<f:facet name="header">
             Produtos selectionados
         </f:facet>
@@ -91,7 +91,7 @@
 		
 			<p:dataTable id="clientes" var="cliente"
 				value="#{clienteBean.clientes}" selectionMode="single"
-				selection="#{pedidoBean.cliente}"
+				selection="#{pedidoBean.pedido.cliente}"
 				rowKey="#{cliente.id}">
 				<f:facet name="header">
             Selecionar cliente
@@ -114,7 +114,7 @@
 		
 			<p:dataTable id="entregadores" var="entregador"
 				value="#{entregadorBean.entregadores}" selectionMode="single"
-				selection="#{entregadorBean.entregador}"
+				selection="#{pedidoBean.pedido.entregador}"
 				rowKey="#{entregador.id}">
 				<f:facet name="header">
             			Selecionar entregador
@@ -162,7 +162,7 @@
 					style="text-align:center; width: 400px">
 
 					<p:outputLabel value="Código do acréscimo" class="label" />
-					<p:inputText value="#{pedidoBean.acrescimo}"
+					<p:inputNumber value="#{pedidoBean.acrescimo}"
 						converter="#{inputAcrescimo}" class="input" />
 
 					<p:commandButton value="Adicionar" update=":form:msgs"
@@ -172,7 +172,7 @@
 				</p:outputPanel>
 			</p:dialog>
 
-		<p:commandButton action="#{pedidoBean.salvar()}" value="Salvar" />
+		<p:commandButton action="#{pedidoBean.salvar()}" value="Salvar" update="@form" />
 
 
 		</h:form>

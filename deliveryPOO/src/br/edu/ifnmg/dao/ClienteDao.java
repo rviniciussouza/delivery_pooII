@@ -18,11 +18,16 @@ public class ClienteDao {
 	private EntityManager entityManager;
 
 	public void salvar(Cliente cliente) {
-		entityManager.persist(cliente);
+		entityManager.persist(entityManager.contains(cliente) ? cliente : entityManager.merge(cliente));
 	}
 	
+	public void remove(Cliente cliente) {
+		entityManager.remove(entityManager.contains(cliente) ? cliente : entityManager.merge(cliente));
+	}
+	
+	
 	public List<Cliente> getClientes() {
-		TypedQuery<Cliente> tq = entityManager.createQuery("select c FROM Cliente c", Cliente.class);
+		TypedQuery<Cliente> tq = entityManager.createQuery("select c FROM Cliente c WHERE c.ativo = true", Cliente.class);
 		return tq.getResultList();
 	}
 }	

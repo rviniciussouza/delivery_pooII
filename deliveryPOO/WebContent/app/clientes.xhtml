@@ -7,6 +7,13 @@
     xmlns:ui="http://java.sun.com/jsf/facelets">
     <ui:composition template="/WEB-INF/template.xhtml">
     
+    <ui:define name="page-title">
+		<div class="page-title">
+			<i class="fa fa-user"/>
+			<h1 style="display: inline-block;">Clientes</h1>
+		</div>
+	</ui:define>
+	
 	
 	<ui:define name="path">
 		<div class="page-title">
@@ -17,6 +24,105 @@
 		</div>
 	</ui:define>
 	
+	<ui:define name="content">
+	
+	<h:form id="form">
+	<p:growl id="msgs" life="1500"/>
+    
+    <style type="text/css">
+    .ui-datatable .ui-datatable-header {
+        text-align: right !important;
+    }
+     
+    .ui-button-text-only .ui-button-text {
+        padding: 0.3em 0.4em;
+    }
+     
+    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+        visibility: hidden;
+    }
+     
+    .ui-filter-column .ui-column-customfilter .custom-filter {
+        width: 100%;
+        box-sizing: border-box;
+    }
+     
+    .year-spinner input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+</style>
+    
+    <p:dataTable var="cliente" value="#{clienteBean.clientes}" id="clientes" widgetVar="clientesTable" 
+                 emptyMessage="Nenhum cliente encontrado" filteredValue="#{clienteBean.clienesFilter}"
+                 editable="true">
+ 
+        <f:facet name="header">
+            <p:outputPanel>
+                <h:outputText value="Search:" />
+                <p:inputText id="globalFilter" onkeyup="PF('clientesTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+            </p:outputPanel>
+        </f:facet>
+        
+        <p:ajax event="rowEdit" listener="#{clienteBean.onRowEdit}" update=":form:msgs" />    
+        
+        <p:column filterBy="#{cliente.nome}" headerText="Nome" filterMatchMode="contains" filterStyle="display:none" >
+ 			<p:cellEditor>
+	            <f:facet name="output"><h:outputText value="#{cliente.nome}" /></f:facet>
+	            <f:facet name="input"><p:inputText value="#{cliente.nome}" /></f:facet>
+    		</p:cellEditor>
+        </p:column>
+
+        <p:column filterBy="#{cliente.telefone.numero}" headerText="Telefone" filterMatchMode="contains" filterStyle="display:none">
+           <p:cellEditor>
+	            <f:facet name="output"><h:outputText value="#{cliente.telefone.numero}" /></f:facet>
+	            <f:facet name="input"><p:inputText value="#{cliente.telefone.numero}" /></f:facet>
+    		</p:cellEditor>
+        </p:column>
+ 
+         <p:column filterBy="#{cliente.endereco.rua}" headerText="Rua" filterMatchMode="contains" filterStyle="display:none">
+			<p:cellEditor>
+	            <f:facet name="output"><h:outputText value="#{cliente.endereco.rua}" /></f:facet>
+	            <f:facet name="input"><p:inputText value="#{cliente.endereco.rua}" /></f:facet>
+    		</p:cellEditor>
+        </p:column>        
+ 
+         <p:column filterBy="#{cliente.endereco.numero}" headerText="Numero" filterMatchMode="contains" filterStyle="display:none">
+			<p:cellEditor>
+	            <f:facet name="output"><h:outputText value="#{cliente.endereco.numero}" /></f:facet>
+	            <f:facet name="input"><p:inputText value="#{cliente.endereco.numero}" /></f:facet>
+    		</p:cellEditor>
+        </p:column>        
+      
+         <p:column filterBy="#{cliente.endereco.bairro}" headerText="Bairro" filterMatchMode="contains" filterStyle="display:none">
+			<p:cellEditor>
+	            <f:facet name="output"><h:outputText value="#{cliente.endereco.bairro}" /></f:facet>
+	            <f:facet name="input"><p:inputText value="#{cliente.endereco.bairro}" /></f:facet>
+    		</p:cellEditor>
+        </p:column>
+        
+         <p:column style="width:60px">
+            <p:rowEditor />
+        </p:column>
+        
+        <p:column style="width:60px;text-align: center">
+             <p:commandButton update=":form:clientes" ajax="true" action="#{clienteBean.remove()}" icon="fa fa-remove" title="Remove">
+                <f:setPropertyActionListener value="#{cliente}" target="#{clienteBean.cliente}" />
+            	<p:confirm header="Confirmação" message="Você tem certeza?" icon="fa fa-exclamation-triangle" />
+            </p:commandButton>
+        </p:column>
+        
+       </p:dataTable>
+    
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+    </p:confirmDialog>
+    
+    
+      </h:form>
+    
+    </ui:define>
     
     </ui:composition> 
    

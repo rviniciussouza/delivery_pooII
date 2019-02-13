@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
@@ -20,13 +21,15 @@ public class ProdutoCustomizado {
 	private Long id;
 	private Integer qtd;
 	
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.DETACH)
 	@JoinColumn(name="produto_id", nullable=false)
 	private Produto produto;
 	
-	@ManyToMany(mappedBy="produtosCust")
+	@ManyToMany(cascade=CascadeType.DETACH)
+	@JoinTable(name="acrescimo_produto", joinColumns= @JoinColumn(name="produtoCust_id"),
+	inverseJoinColumns= @JoinColumn(name="acrescimo_id"))
 	private List<Acrescimo> acrescimos = new ArrayList<>();
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -58,4 +61,50 @@ public class ProdutoCustomizado {
 	public void setAcrescimos(List<Acrescimo> acrescimos) {
 		this.acrescimos = acrescimos;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((acrescimos == null) ? 0 : acrescimos.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
+		result = prime * result + ((qtd == null) ? 0 : qtd.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProdutoCustomizado other = (ProdutoCustomizado) obj;
+		if (acrescimos == null) {
+			if (other.acrescimos != null)
+				return false;
+		} else if (!acrescimos.equals(other.acrescimos))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (produto == null) {
+			if (other.produto != null)
+				return false;
+		} else if (!produto.equals(other.produto))
+			return false;
+		if (qtd == null) {
+			if (other.qtd != null)
+				return false;
+		} else if (!qtd.equals(other.qtd))
+			return false;
+		return true;
+	}
+
+	
+
 }
