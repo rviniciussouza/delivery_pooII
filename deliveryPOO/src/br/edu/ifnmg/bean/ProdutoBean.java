@@ -18,14 +18,17 @@ public class ProdutoBean {
 	private ProdutoDao produtoDao;
 	
 	private Produto produto;
+	private List<Produto> produtos;
+	private List<Produto> produtosFilter;
 	
 	@PostConstruct
 	public void init() {
 		produto = new Produto();
+		produtos = produtoDao.getProdutos();
 	}
 
 	public List<Produto> getProdutos() {
-		return produtoDao.getProdutos();
+		return this.produtos;
 	}
 	
 	public void salvar() {
@@ -44,6 +47,18 @@ public class ProdutoBean {
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+
+	public List<Produto> getProdutosFilter() {
+		return produtosFilter;
+	}
+
+	public void setProdutosFilter(List<Produto> produtosFilter) {
+		this.produtosFilter = produtosFilter;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}
 	
 	

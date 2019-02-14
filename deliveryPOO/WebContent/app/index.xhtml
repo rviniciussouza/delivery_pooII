@@ -22,6 +22,55 @@
 
 	<ui:define name="content">
 		
+		<h:form>
+		<p:dataTable var="pedido" value="#{pedidoViewBean.pedidos}" id="pedidos" widgetVar="pedidosTable" 
+                 emptyMessage="Nenhum pedido encontrado" filteredValue="#{pedidoViewBean.pedidosFilter}"
+                 editable="true">
+ 
+        <f:facet name="header">
+            <p:outputPanel>
+                <h:outputText value="Search:" />
+                <p:inputText id="globalFilter" onkeyup="PF('pedidosTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+            </p:outputPanel>
+        </f:facet>  
+        
+        <p:column filterBy="#{pedido.cliente.nome}" headerText="Cliente" filterMatchMode="contains" filterStyle="display:none" >
+ 			<h:outputText value="#{pedido.cliente.nome}" />
+        </p:column>
+        
+        <p:column filterBy="#{pedido.total}" headerText="Total" filterMatchMode="contains" filterStyle="display:none" >
+	        <h:outputText value="R$ #{pedido.total}" />
+        </p:column>
+        
+		<p:column filterBy="#{pedido.data}" headerText="Data" filterMatchMode="contains" filterStyle="display:none" >
+	        <h:outputText value="#{pedido.data}" />
+        </p:column>
+
+        <p:column filterBy="#{pedido.cliente.telefone.numero}" headerText="Telefone" filterMatchMode="contains" filterStyle="display:none">
+			<h:outputText value="#{pedido.cliente.telefone.numero}" />
+        </p:column>
+ 
+         <p:column filterBy="#{pedido.cliente.endereco}" headerText="Endereço" filterMatchMode="contains" filterStyle="display:none">
+	          <h:outputText value="#{pedido.cliente.endereco}" />
+        </p:column>        
+         
+         <p:column style="width:60px;text-align: center">
+             <p:commandButton icon="fa fa-search" title="View">
+                <f:setPropertyActionListener value="#{pedido}" target="#{pedidoViewBean.pedido}" />
+            </p:commandButton>
+        </p:column>
+        
+        <!--  <p:column style="width:60px;text-align: center">
+             <p:commandButton update=":form:clientes" ajax="true" action="#{clienteBean.remove()}" icon="fa fa-remove" title="Remove">
+                <f:setPropertyActionListener value="#{cliente}" target="#{clienteBean.cliente}" />
+            	<p:confirm header="Confirmação" message="Você tem certeza?" icon="fa fa-exclamation-triangle" />
+            </p:commandButton>
+        </p:column> -->
+        
+       </p:dataTable>
+		</h:form>
+		
+		
 	</ui:define>
 </ui:composition>
 </html>

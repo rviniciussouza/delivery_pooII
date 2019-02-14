@@ -98,19 +98,5 @@ public class Pedido {
 	}
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
-	}
-	
-	public Double calcularValorTotal() {
-		Double total = (double) 0;
-		for(ProdutoCustomizado p: this.produtos) {
-			for(Acrescimo a: p.getAcrescimos()) {
-				total += a.getPreco() * p.getQtd();
-			}
-			
-			total += p.getProduto().getPreco() * p.getQtd();
-		}
-	
-		return total;
-	}
-	
+	}	
 }

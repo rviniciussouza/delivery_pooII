@@ -16,15 +16,18 @@ import br.edu.ifnmg.model.Administrador;
 
 /**
  * Servlet Filter implementation class SectionAdmin
+ * 
  */
-@WebFilter(filterName = "/SectionAdmin", urlPatterns = ("/ask/*"))
+@WebFilter(filterName = "/SectionAdmin", urlPatterns = ("/lixo/*"))
 public class SectionAdmin implements Filter {
 
     /**
-     * Default constructor. 
+     ** Default constructor. 
+     
      */
     public SectionAdmin() {
         // TODO Auto-generated constructor stub
+    	
     }
 
 	/**

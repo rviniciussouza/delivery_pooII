@@ -26,7 +26,13 @@
 	<managed-bean>
 		<managed-bean-name>pedidoBean</managed-bean-name>
 		<managed-bean-class>br.edu.ifnmg.bean.PedidoBean</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>pedidoViewBean</managed-bean-name>
+		<managed-bean-class>br.edu.ifnmg.bean.PedidoViewBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 	
 	<managed-bean>

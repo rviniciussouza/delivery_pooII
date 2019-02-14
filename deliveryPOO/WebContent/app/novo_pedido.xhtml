@@ -15,129 +15,182 @@
 	<ui:define name="path">
 		<div class="page-title">
 			<ol class="breadcrumb text-right">
-				<li class="active">Dashboard</li>
+				<h:form id="valor">
+				<h:outputText id="valorTotal" value="Valor total R$ #{pedidoBean.valorPedido}" />
+				</h:form>
 			</ol>
 		</div>
 	</ui:define>
 
 	<ui:define name="content">
 
+		<style type="text/css">
+
+.ui-button-text-only .ui-button-text {
+	padding: 0.3em 0.4em;
+}
+
+.panel {
+	padding: 0 !important;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+	visibility: hidden;
+}
+
+.ui-filter-column .ui-column-customfilter .custom-filter {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.year-spinner input {
+	width: 100%;
+	box-sizing: border-box;
+}
+</style>
+
 
 		<h:form id="form">
 
 
-			<p:growl id="msgs" showDetail="true" life="2000" />
+			<p:growl id="msgs" life="2000" />
 
-		<div class="col-lg-6">
-			<p:dataTable id="produtos" var="produto"
-				value="#{produtoBean.produtos}" selectionMode="single"
-				selection="#{pedidoBean.produtoCustomizado.produto}"
-				rowKey="#{produto.id}">
-				<f:facet name="header">
-            Selecionar produto
-        </f:facet>
-				<p:ajax event="rowSelect" oncomplete="PF('addProdutoDialog').show()"
-					update=":form:addProduto" />
-				<p:column headerText="Nome">
-					<h:outputText value="#{produto.nome}" />
-				</p:column>
-				<p:column headerText="Peço">
-					<h:outputText value="#{produto.preco}" />
-				</p:column>
-			</p:dataTable>
+			<div class="col-lg-6">
+				<p:dataTable id="produtos" var="produto" rows="10" widgetVar="produtosTable"
+					value="#{produtoBean.produtos}" selectionMode="single" filteredValue="#{produtoBean.produtosFilter}"
+					selection="#{pedidoBean.produtoCustomizado.produto}"
+					rowKey="#{produto.id}">
+					<f:facet name="header">
+						<p:outputPanel>
+							<h:outputText value="Selecionar produto:"
+								style="margin-left: 10px" />
+							<p:inputText id="globalFilter" 
+								onkeyup="PF('produtosTable').filter()" style="align: right; width:150px"
+								placeholder="Enter keyword" />
+						</p:outputPanel>
+					</f:facet>
+					<p:ajax event="rowSelect"
+						oncomplete="PF('addProdutoDialog').show()"
+						update=":form:addProduto" />
+					<p:column headerText="Nome" filterBy="#{produto.nome}" filterMatchMode="contains" filterStyle="display:none">
+						<h:outputText value="#{produto.nome}" />
+					</p:column>
+					<p:column headerText="Preço" filterBy="#{produto.preco}" filterMatchMode="contains" filterStyle="display:none">
+						<h:outputText value="#{produto.preco}" />
+					</p:column>
+				</p:dataTable>
 
+				<p:dataTable id="carrinho" var="item" value="#{pedidoBean.itens}">
+					<f:facet name="header">Produtos selecionados</f:facet>
+					<p:column headerText="Nome">
+						<h:outputText value="#{item.produto.nome}" />
+					</p:column>
+					<p:column headerText="Quantidade">
+						<h:outputText value="#{item.qtd}" />
+					</p:column>
+					<p:column style="width:60px;text-align: center">
+						<p:commandButton update=":form:addAcrescimo"
+							oncomplete="PF('addAcrescimoDialog').show()" icon="fa fa-plus"
+							title="Adicionar acréscimo">
+							<f:setPropertyActionListener value="#{item}"
+								target="#{pedidoBean.produtoCustomizado}" />
+						</p:commandButton>
+					</p:column>
 
-			<p:dataTable id="carrinho"  style="margin-top: 10px" var="item" value="#{pedidoBean.itens}">
-				<f:facet name="header">
-            Produtos selectionados
-        </f:facet>
-				<p:column headerText="Nome">
-					<h:outputText value="#{item.produto.nome}" />
-				</p:column>
-				<p:column headerText="Quantidade">
-					<h:outputText value="#{item.qtd}" />
-				</p:column>
-				<p:column style="width:60px;text-align: center">
-					<p:commandButton update=":form:addAcrescimo"
-						oncomplete="PF('addAcrescimoDialog').show()" icon="fa fa-plus"
-						title="Adicionar acréscimo">
-						<f:setPropertyActionListener value="#{item}"
-							target="#{pedidoBean.produtoCustomizado}" />
-					</p:commandButton>
-				</p:column>
+					<p:column style="width:60px;text-align: center">
+						<p:commandButton update=":form:listAcrescimos"
+							oncomplete="PF('acrescimosDialog').show()" icon="fa fa-search"
+							title="Visualisar acréscimos">
+							<f:setPropertyActionListener value="#{item}"
+								target="#{pedidoBean.produtoCustomizado}" />
+						</p:commandButton>
+					</p:column>
 
-				<p:column style="width:60px;text-align: center">
-					<p:commandButton update=":form:listAcrescimos"
-						oncomplete="PF('acrescimosDialog').show()" icon="fa fa-search"
-						title="Visualisar acréscimos">
-						<f:setPropertyActionListener value="#{item}"
-							target="#{pedidoBean.produtoCustomizado}" />
-					</p:commandButton>
-				</p:column>
-				
-				<p:column style="width:60px;text-align: center">
-					<p:commandButton update=":form:listAcrescimos" ajax="true"
-						action="pedidoBean.excluirProdutoCarrinho()" icon="fa fa-remove"
-						title="Excluir">
-						<f:setPropertyActionListener value="#{item}"
-							target="#{pedidoBean.produtoCustomizado}" />
-					</p:commandButton>
-				</p:column>
-				
-			</p:dataTable>
-		</div>
-		
-		<div class="col-lg-6">
-		
-			<p:dataTable id="clientes" var="cliente"
-				value="#{clienteBean.clientes}" selectionMode="single"
-				selection="#{pedidoBean.pedido.cliente}"
-				rowKey="#{cliente.id}">
-				<f:facet name="header">
-            Selecionar cliente
-        </f:facet>
-				<p:column headerText="Nome">
-					<h:outputText value="#{cliente.nome}" />
-				</p:column>
-				<p:column headerText="Telefone">
-					<h:outputText value="#{cliente.telefone.numero}" />
-				</p:column>
-				<p:column headerText="Endereço">
-					<h:outputText value="#{cliente.endereco}" />
-				</p:column>
-			</p:dataTable>		
+					<p:column style="width:60px;text-align: center">
+						<p:commandButton update=":form:listAcrescimos" ajax="true"
+							action="pedidoBean.excluirProdutoCarrinho()" icon="fa fa-remove"
+							title="Excluir">
+							<f:setPropertyActionListener value="#{item}"
+								target="#{pedidoBean.produtoCustomizado}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+			</div>
+
+			<div class="col-lg-6">
+				<p:dataTable id="entregadores" var="entregador" widgetVar="entregadoresTable" rows="10"
+					value="#{entregadorBean.entregadores}" selectionMode="single" filteredValue="#{entregadorBean.entregadoresFilter}"
+					selection="#{pedidoBean.pedido.entregador}"
+					rowKey="#{entregador.id}">
+					<f:facet name="header">
+						<p:outputPanel>
+							<h:outputText value="Selecionar entregador:"
+								style="margin-left: 10px" />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('entregadoresTable').filter()" style="width:150px"
+								placeholder="Enter keyword" />
+						</p:outputPanel>
+					</f:facet>
+					<p:column headerText="Nome" filterBy="entregador.nome" filterMatchMode="contains" filterStyle="display:none">
+						<h:outputText value="#{entregador.nome}" />
+					</p:column>
+					<p:column headerText="Veiculo" filterBy="entregador.veiculo.modelo" filterMatchMode="contains" filterStyle="display:none">
+						<h:outputText value="#{entregador.veiculo.modelo}" />
+					</p:column>
+				</p:dataTable>
+			</div>
+
+			<div class="col-lg-6">
+				<p:dataTable id="clientes" var="cliente" rows="10"
+					value="#{clienteBean.clientes}" selectionMode="single"
+					selection="#{pedidoBean.pedido.cliente}" widgetVar="clientesTable"
+					filteredValue="#{clienteBean.clienesFilter}" rowKey="#{cliente.id}">
+					<f:facet name="header">
+
+						<p:outputPanel>
+							<h:outputText value="Selecionar cliente:"
+								style="margin-left: 10px" />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('clientesTable').filter()" style="width:150px"
+								placeholder="Enter keyword" />
+						</p:outputPanel>
+					</f:facet>
+
+					<p:column filterBy="#{cliente.nome}" headerText="Nome"
+						filterMatchMode="contains" filterStyle="display:none">
+						<h:outputText value="#{cliente.nome}" />
+					</p:column>
+
+					<p:column filterBy="#{cliente.telefone.numero}"
+						headerText="Telefone" filterMatchMode="contains"
+						filterStyle="display:none">
+						<h:outputText value="#{cliente.telefone.numero}" />
+					</p:column>
+
+					<p:column filterBy="#{cliente.endereco}" headerText="Endereço"
+						filterMatchMode="contains" filterStyle="display:none">
+						<h:outputText value="#{cliente.endereco}" />
+					</p:column>
+				</p:dataTable>
+			</div>
 			
-		
-		</div>
-
-		<div class="col-lg-6">
-		
-			<p:dataTable id="entregadores" var="entregador"
-				value="#{entregadorBean.entregadores}" selectionMode="single"
-				selection="#{pedidoBean.pedido.entregador}"
-				rowKey="#{entregador.id}">
-				<f:facet name="header">
-            			Selecionar entregador
-        		</f:facet>
-				<p:column headerText="Nome">
-					<h:outputText value="#{entregador.nome}" />
-				</p:column>
-				<p:column headerText="Veiculo">
-					<h:outputText value="#{entregador.veiculo.modelo}" />
-				</p:column>
-			</p:dataTable>		
-		</div>
-		
-
+			<div class="col-lg-6">
+				<p:panel header="Observação" styleClass="panel" >
+				<p:inputTextarea value="#{pedidoBean.pedido.observacao}" style="heigth:100%; width:100%;" />
+				</p:panel>
+			</div>
 
 			<p:dialog header="Adicionar produto" widgetVar="addProdutoDialog"
 				modal="true" showEffect="fade" hideEffect="fade" resizable="false">
 				<p:outputPanel id="addProduto"
 					style="text-align:center; width: 400px">
-					<p:outputLabel class="label" value="Quantidade" />
-					<p:inputText value="#{pedidoBean.produtoCustomizado.qtd}" />
+					<p:outputLabel class="label" value="Quantidade"
+						style="magin-left: 10px" />
+					<p:inputText value="#{pedidoBean.produtoCustomizado.qtd}"
+						class="input" />
 					<p:commandButton value="Adicionar"
-						action="#{pedidoBean.addProduto()}" update=":form:carrinho"
+						action="#{pedidoBean.addProduto()}" update=":form:carrinho, :valor:valorTotal"
 						oncomplete="PF('addProdutoDialog').hide()" />
 				</p:outputPanel>
 			</p:dialog>
@@ -148,7 +201,7 @@
 				<p:outputPanel id="listAcrescimos"
 					style="text-align:center; width: 400px">
 					<p:dataTable id="acrescimos" var="acrescimo"
-						value="#{pedidoBean.produtoCustomizado.acrescimos}" >
+						value="#{pedidoBean.produtoCustomizado.acrescimos}">
 						<p:column headerText="Nome">
 							<h:outputText value="#{acrescimo.nome}" />
 						</p:column>
@@ -162,18 +215,19 @@
 					style="text-align:center; width: 400px">
 
 					<p:outputLabel value="Código do acréscimo" class="label" />
-					<p:inputNumber value="#{pedidoBean.acrescimo}"
+					<p:inputText value="#{pedidoBean.acrescimo}"
 						converter="#{inputAcrescimo}" class="input" />
 
-					<p:commandButton value="Adicionar" update=":form:msgs"
+					<p:commandButton value="Adicionar" update=":form:msgs, :valor:valorTotal"
 						action="#{pedidoBean.addAcrescimo()}"
 						oncomplete="PF('addAcrescimoDialog').hide()" />
 
 				</p:outputPanel>
 			</p:dialog>
 
-		<p:commandButton action="#{pedidoBean.salvar()}" value="Salvar" update="@form" />
-
+			<div class="col-5" style="clear: both">
+			<h:commandButton  type="submit" action="#{pedidoBean.salvar()}" update="@form" value="Salvar" />
+			</div>
 
 		</h:form>
 

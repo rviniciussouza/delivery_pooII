@@ -9,6 +9,7 @@ import java.util.List;
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,8 +26,8 @@ public class PedidoBean {
 
 	@EJB
 	private PedidoDao pedidoDao;
-	
 	private Pedido pedido;
+	private Double valorPedido;
 	private List<ProdutoCustomizado> itens;
 	private ProdutoCustomizado produtoCustomizado;
 	private Acrescimo acrescimo; 
@@ -40,6 +41,7 @@ public class PedidoBean {
 		itens = new ArrayList<>();
 		produtoCustomizado = new ProdutoCustomizado();
 		cliente = new Cliente();
+		valorPedido = (double) 0;
 	}
 	
 	public void salvar() {
@@ -57,14 +59,19 @@ public class PedidoBean {
 		}
 		
 		pedido.setProdutos(itens);
+		pedido.setTotal(calcularValorTotal());
 		pedido.setData(date);
 		pedidoDao.salvar(pedido);
+		addMessage("Pedido relizado com sucesso", null);
+		pedido = new Pedido();
+		itens = new ArrayList<>();
 	}
 	
 	public void addProduto() {
 		produtoCustomizado.setId(idx++);
 		itens.add(produtoCustomizado);
 		produtoCustomizado = new ProdutoCustomizado();
+		addMessage("Produto Adicionado", null);
 	}
 	
 	public void addAcrescimo() {
@@ -74,9 +81,31 @@ public class PedidoBean {
 				p.getAcrescimos().add(acrescimo);
 			}
 		}
+		addMessage("Acréscimo adicionado", null);
 		acrescimo = null;
 	}
+	
 
+	public Double calcularValorTotal() {
+		Double total = (double) 0;
+		for(ProdutoCustomizado p: itens) {
+			for(Acrescimo a: p.getAcrescimos()) {
+				total += a.getPreco();
+			}
+			
+			total += p.getProduto().getPreco() * p.getQtd();
+		}
+	
+		return total;
+	}
+
+	
+	public void addMessage(String info, String detail ) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, info, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+	
+	
 	public void excluirProdutoCarrinho() {
 		System.out.println("aqui" + produtoCustomizado.getId());
 	}
@@ -119,6 +148,14 @@ public class PedidoBean {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public Double getValorPedido() {
+		return calcularValorTotal();
+	}
+
+	public void setValorPedido(Double valorPedido) {
+		this.valorPedido = valorPedido;
 	}
 	
 	

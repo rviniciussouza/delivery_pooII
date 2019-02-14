@@ -22,6 +22,8 @@ public class EntregadorBean {
 	private Telefone telefone;
 	private Endereco endereco;
 	private Veiculo veiculo;
+	private List<Entregador> entregadores;
+	private List<Entregador> entregadoresFilter;
 	
 	@PostConstruct
 	public void init() {
@@ -29,6 +31,7 @@ public class EntregadorBean {
 		telefone = new Telefone();
 		endereco = new Endereco();
 		veiculo = new Veiculo();
+		entregadores = entregadorDao.getEntregadores();
 	}
 	
 	@EJB
@@ -44,7 +47,7 @@ public class EntregadorBean {
 	}
 	
 	public List<Entregador> getEntregadores() {
-		return entregadorDao.getEntregadores();
+		return this.entregadores;
 	}
 	
 	public void addMessage(String info, String detail ) {
@@ -77,6 +80,18 @@ public class EntregadorBean {
 
 	public void setVeiculo(Veiculo veiculo) {
 		this.veiculo = veiculo;
+	}
+
+	public List<Entregador> getEntregadoresFilter() {
+		return entregadoresFilter;
+	}
+
+	public void setEntregadoresFilter(List<Entregador> entregadoresFilter) {
+		this.entregadoresFilter = entregadoresFilter;
+	}
+
+	public void setEntregadores(List<Entregador> entregadores) {
+		this.entregadores = entregadores;
 	}
 	
 	
