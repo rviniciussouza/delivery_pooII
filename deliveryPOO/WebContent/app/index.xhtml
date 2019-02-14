@@ -22,7 +22,7 @@
 
 	<ui:define name="content">
 		
-		<h:form>
+		<h:form id="form">
 		<p:dataTable var="pedido" value="#{pedidoViewBean.pedidos}" id="pedidos" widgetVar="pedidosTable" 
                  emptyMessage="Nenhum pedido encontrado" filteredValue="#{pedidoViewBean.pedidosFilter}"
                  editable="true">
@@ -55,20 +55,58 @@
         </p:column>        
          
          <p:column style="width:60px;text-align: center">
-             <p:commandButton icon="fa fa-search" title="View">
+             <p:commandButton update=":form:pedidoDetail" oncomplete="PF('pedidoDialog').show()" icon="fa fa-search" title="View">
                 <f:setPropertyActionListener value="#{pedido}" target="#{pedidoViewBean.pedido}" />
             </p:commandButton>
         </p:column>
-        
-        <!--  <p:column style="width:60px;text-align: center">
-             <p:commandButton update=":form:clientes" ajax="true" action="#{clienteBean.remove()}" icon="fa fa-remove" title="Remove">
-                <f:setPropertyActionListener value="#{cliente}" target="#{clienteBean.cliente}" />
-            	<p:confirm header="Confirmação" message="Você tem certeza?" icon="fa fa-exclamation-triangle" />
-            </p:commandButton>
-        </p:column> -->
-        
+      
        </p:dataTable>
-		</h:form>
+	
+	
+		<p:dialog header="Detalhes do pedido" widgetVar="pedidoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="pedidoDetail" style="width:500px;">
+           
+ 
+ 				<p:dataTable id="carrinho" var="item" value="#{pedidoViewBean.pedido.produtos}">
+					<f:facet name="header">Produtos selecionados</f:facet>
+					<p:column headerText="Nome">
+						<h:outputText value="#{item.produto.nome}" />
+					</p:column>
+					<p:column headerText="Quantidade">
+						<h:outputText value="#{item.qtd}" />
+					</p:column>
+					
+					<p:column style="width:60px;text-align: center">
+						<p:commandButton update=":form:listAcrescimos"
+							oncomplete="PF('acrescimosDialog').show()" icon="fa fa-search"
+							title="Visualisar acréscimos">
+							<f:setPropertyActionListener value="#{item}"
+								target="#{pedidoViewBean.produtoCustomizado}" />
+						</p:commandButton>
+					</p:column>
+					
+				</p:dataTable>
+ 		
+          </p:outputPanel>
+   	
+    </p:dialog>
+	
+	<p:dialog header="Acréscimos adicionados"
+				widgetVar="acrescimosDialog" modal="true" showEffect="fade"
+				hideEffect="fade" resizable="false">
+				<p:outputPanel id="listAcrescimos"
+					style="text-align:center; width: 400px">
+					<p:dataTable id="acrescimos" var="acrescimo"
+						value="#{pedidoBean.produtoCustomizado.acrescimos}">
+						<p:column headerText="Nome">
+							<h:outputText value="#{acrescimo.nome}" />
+						</p:column>
+					</p:dataTable>
+				</p:outputPanel>
+			</p:dialog>
+	
+	
+	   </h:form>
 		
 		
 	</ui:define>
