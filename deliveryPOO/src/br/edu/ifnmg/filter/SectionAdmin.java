@@ -22,7 +22,7 @@ import br.edu.ifnmg.model.Administrador;
 public class SectionAdmin implements Filter {
 
     /**
-     ** Default constructor. 
+     ** Default  constructor. 
      
      */
     public SectionAdmin() {

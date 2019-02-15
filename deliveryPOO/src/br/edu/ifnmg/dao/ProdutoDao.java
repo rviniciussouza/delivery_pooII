@@ -16,11 +16,11 @@ public class ProdutoDao {
 	EntityManager entityManager;
 	
 	public void salvar(Produto produto) {
-		entityManager.persist(produto);
+		entityManager.persist(entityManager.contains(produto) ? produto : entityManager.merge(produto));
 	}
 	
 	public List<Produto> getProdutos() {
-		TypedQuery<Produto> tq = entityManager.createQuery("select p FROM Produto p", Produto.class);
+		TypedQuery<Produto> tq = entityManager.createQuery("select p FROM Produto p WHERE p.ativo = true", Produto.class);
 		return tq.getResultList();
 	}
 	

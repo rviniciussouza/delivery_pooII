@@ -218,7 +218,7 @@
 					<p:inputText value="#{pedidoBean.acrescimo}"
 						converter="#{inputAcrescimo}" class="input" />
 
-					<p:commandButton value="Adicionar" update=":form:msgs, :valor:valorTotal"
+					<p:commandButton value="Adicionar" update=":form:msgs, :form:addAcrescimo, :valor:valorTotal"
 						action="#{pedidoBean.addAcrescimo()}"
 						oncomplete="PF('addAcrescimoDialog').hide()" />
 

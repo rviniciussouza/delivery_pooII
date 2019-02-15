@@ -1,5 +1,6 @@
 package br.edu.ifnmg.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.ManagedBean;
@@ -8,11 +9,19 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.event.RowEditEvent;
+
 import br.edu.ifnmg.dao.ProdutoDao;
+import br.edu.ifnmg.model.Cliente;
 import br.edu.ifnmg.model.Produto;
 
 @ManagedBean
-public class ProdutoBean {
+public class ProdutoBean implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@EJB
 	private ProdutoDao produtoDao;
@@ -31,9 +40,22 @@ public class ProdutoBean {
 		return this.produtos;
 	}
 	
+	public void onRowEdit(RowEditEvent event) {
+		addMessage("Produto editado com sucesso", null);
+		produtoDao.salvar((Produto)event.getObject());
+	}
+	
 	public void salvar() {
 		produtoDao.salvar(produto);
 		addMessage("Produto cadastrado com sucesso", null);
+	}
+	
+	public void remove() {
+		produto.setAtivo(false);
+		produtoDao.salvar(produto);
+		produtos = produtoDao.getProdutos();
+		produtosFilter = produtos;
+		addMessage("Produto removido com sucesso", null);
 	}
 	
 	public void addMessage(String info, String detail ) {

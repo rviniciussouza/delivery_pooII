@@ -14,6 +14,7 @@ public class Produto {
 	private Double preco;
 	private Integer qtdEstoque;
 	private String descricao;
+	private Boolean ativo = true;
 	
 	public Long getId() {
 		return id;
@@ -45,8 +46,10 @@ public class Produto {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
-	
-	
-	
+	public Boolean getAtivo() {
+		return ativo;
+	}
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}	
 }

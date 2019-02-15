@@ -86,6 +86,16 @@
 					</p:column>
 					
 				</p:dataTable>
+				
+				<p:panel styleClass="panel" header="Observação" style=" width: 100%" >
+				<h:outputText value="#{pedidoViewBean.pedido.observacao}" style="heigth:200px; width:100%;" />
+				</p:panel>
+				
+				<p:panel styleClass="panel" header="Atendimento e entrega" style="margin-top: 20px; width: 100%" >
+				<h:outputText value="Atendente: #{pedidoViewBean.pedido.administrador.nome}" style="heigth:200px; width:100%;" /> <br/>
+				<h:outputText value="Entregador: #{pedidoViewBean.pedido.entregador.nome}" style="heigth:200px; width:100%;" /> <br/>
+				<h:outputText value="Data do pedido: #{pedidoViewBean.pedido.data}" style="heigth:200px; width:100%;" />
+				</p:panel>
  		
           </p:outputPanel>
    	

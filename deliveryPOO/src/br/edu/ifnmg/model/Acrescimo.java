@@ -11,6 +11,7 @@ public class Acrescimo {
 	private Long id;
 	private String nome;
 	private Double preco;
+	private Boolean ativo = true;
 
 	public Long getId() {
 		return id;
@@ -35,7 +36,20 @@ public class Acrescimo {
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
+	
+	public Boolean getAtivo() {
+		return ativo;
+	}
 
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	@Override
+	public String toString() {
+		return this.id.toString();
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
