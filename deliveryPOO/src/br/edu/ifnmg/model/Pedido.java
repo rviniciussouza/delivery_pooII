@@ -22,6 +22,7 @@ public class Pedido {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private Double total;
+	private Integer status = 0;
 	
 	@ManyToOne
 	@JoinColumn(nullable=false)
@@ -98,5 +99,11 @@ public class Pedido {
 	}
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+	}
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
 	}	
 }

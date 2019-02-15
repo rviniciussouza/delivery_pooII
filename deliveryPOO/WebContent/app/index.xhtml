@@ -23,6 +23,8 @@
 	<ui:define name="content">
 		
 		<h:form id="form">
+	
+		
 		<p:dataTable var="pedido" value="#{pedidoViewBean.pedidos}" id="pedidos" widgetVar="pedidosTable" 
                  emptyMessage="Nenhum pedido encontrado" filteredValue="#{pedidoViewBean.pedidosFilter}"
                  editable="true">
@@ -57,6 +59,20 @@
          <p:column style="width:60px;text-align: center">
              <p:commandButton update=":form:pedidoDetail" oncomplete="PF('pedidoDialog').show()" icon="fa fa-search" title="View">
                 <f:setPropertyActionListener value="#{pedido}" target="#{pedidoViewBean.pedido}" />
+            </p:commandButton>
+        </p:column>
+        
+        <p:column style="width:60px;text-align: center">
+             <p:commandButton update=":form:pedidos" ajax="true" action="#{pedidoViewBean.finalizar()}" icon="fa fa-check" title="Entregar">
+                <f:setPropertyActionListener value="#{pedido}" target="#{pedidoViewBean.pedido}" />
+            	<p:confirm header="Confirmação" message="Você tem certeza?" icon="fa fa-exclamation-triangle" />
+            </p:commandButton>
+        </p:column>
+        
+        <p:column style="width:60px;text-align: center">
+             <p:commandButton update=":form:pedidos" ajax="true" action="#{pedidoViewBean.cancelar()}" icon="fa fa-times" title="Cancelar">
+                <f:setPropertyActionListener value="#{pedido}" target="#{pedidoViewBean.pedido}" />
+            	<p:confirm header="Confirmação" message="Você tem certeza?" icon="fa fa-exclamation-triangle" />
             </p:commandButton>
         </p:column>
       
@@ -101,13 +117,19 @@
    	
     </p:dialog>
 	
+	 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+    </p:confirmDialog>
+	
+	
 	<p:dialog header="Acréscimos adicionados"
 				widgetVar="acrescimosDialog" modal="true" showEffect="fade"
 				hideEffect="fade" resizable="false">
 				<p:outputPanel id="listAcrescimos"
 					style="text-align:center; width: 400px">
 					<p:dataTable id="acrescimos" var="acrescimo"
-						value="#{pedidoBean.produtoCustomizado.acrescimos}">
+						value="#{pedidoViewBean.produtoCustomizado.acrescimos}">
 						<p:column headerText="Nome">
 							<h:outputText value="#{acrescimo.nome}" />
 						</p:column>
